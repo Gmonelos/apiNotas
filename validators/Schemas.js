@@ -14,7 +14,6 @@ app.post("/register", async (req, res) => {
 
     });
 
-    // Validate req.body against the defined schema
     const validation = schema.validate(req.body);
     const { value, error } = validation;
 
