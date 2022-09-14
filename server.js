@@ -6,7 +6,6 @@ const morgan = require('morgan');
 const { PORT } = process.env;
 const {
     newUserController,
-    getUserController,
     loginController,
 } = require('./controllers/users.js');
 const {
@@ -22,6 +21,8 @@ const {
     deleteTagController,
     getAllTagsController
 } = require('./controllers/tags.js')
+const { authUser } = require('./middlewares/auth');
+
 
 const app = express();
 
@@ -30,14 +31,13 @@ app.use(morgan('dev'));
 
 //Endpoints
 app.post('/user', newUserController);
-app.get('/user/:id', getUserController);
 app.post('/login', loginController);
 
-app.get('/', getNotesController);
-app.post('/', newNoteController);
+app.get('/', authUser, getNotesController);
+app.post('/', authUser, newNoteController);
 app.get('/public', getPublicNotesController);
-app.get('/note/:id', getSingleNoteController);
-app.delete('/note/:id', deleteNoteController);
+app.get('/note/:id', authUser, getSingleNoteController);
+app.delete('/note/:id', authUser, deleteNoteController);
 
 app.get('/tags', getAllTagsController);
 app.get('/tag/:id', getTagController);

@@ -33,7 +33,7 @@ async function main() {
             title VARCHAR (60) NOT NULL,
             content VARCHAR(255) NOT NULL,
             user_id INT UNSIGNED NOT NULL,
-            tag_id INT UNSIGNED NOT NULL,
+            tag_id INT UNSIGNED,
             is_public BOOLEAN,
             FOREIGN KEY (user_id) REFERENCES users(id),
             FOREIGN KEY (tag_id) REFERENCES tags(id) );
